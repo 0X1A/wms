@@ -1,0 +1,9 @@
+background yes
+out_to_x no
+out_to_console yes
+update_interval 10
+total_run_times 0
+user_spacer none
+
+TEXT
+^fg(\#93a1a1)${time %b %d %H:%M}^fg()
