@@ -2,8 +2,8 @@
 
 source $(dirname $0)/config.sh
 
-QUAL=`iwconfig wlp8s0 | grep 'Link Quality=' | awk '{gsub(/[=/]/," "); print $3}'`
-MAX=`iwconfig wlp8s0 | grep 'Link Quality=' | awk '{gsub(/[=/]/," "); print $4}'`
+QUAL=`iwconfig wlan0 | grep 'Link Quality=' | awk '{gsub(/[=/]/," "); print $3}'`
+MAX=`iwconfig wlan0 | grep 'Link Quality=' | awk '{gsub(/[=/]/," "); print $4}'`
 PERC=`echo $QUAL*100/$MAX | bc`
 
 color=""
