@@ -15,3 +15,23 @@ then
         xmonad --recompile
     fi
 fi
+
+cp $DIR/.conkyrc ~/
+cp $DIR/sc $XMDIR
+cp -r $DIR/dzen2 $XMDIR
+cp -r $DIR/scripts $XMDIR
+
+SetNetwork() {
+    echo "Please enter your network device name:"
+    read NET
+    sed -i -e "s/wlan0/$NET/g" $XMDIR/scripts/*.sh
+}
+
+SetNetwork
+
+SetUserDir() {
+    sed -i -e "s/username/$USER/g" $XMDIR/scripts/*.sh
+    sed -i -e "s/username/$USER/g" ~/.conkyrc
+}
+
+SetUserDir
