@@ -43,6 +43,12 @@ myManageHook = composeAll
 myKeys =    [   ((mod4Mask, xK_m), spawn "urxvt -e mutt")
             ,   ((mod4Mask, xK_e), spawn "urxvt -e vim")
             ,   ((0, xK_Print), spawn "scrot")
+            ,   ((mod4Mask, xK_F12), spawn "amixer set Master 5+ unmute")
+            ,   ((mod4Mask, xK_F11), spawn "amixer set Master 5- unmute")
+            ,   ((mod4Mask, xK_F10), spawn "amixer set Master 1+ toggle")
+            ,   ((mod4Mask, xK_F6), spawn "xbacklight -inc 10")
+            ,   ((mod4Mask, xK_F5), spawn "xbacklight -dec 10")
+            ,   ((mod4Mask, xK_F7), spawn "xbacklight -set 0")
             ,   ((mod4Mask, xK_b), spawn "firefox")
             ]
 
@@ -66,8 +72,8 @@ myWorkSpaces            = clickable . (map dzenEscape) $ ["I","II","III","IV","V
 myLogHook h = dynamicLogWithPP $ myDzenPP { ppOutput = hPutStrLn h }
 
 myDzenStatus = "dzen2 -ta 'l'" ++ myDzenStyle
-myDzenConky  = "conky -c ~/.conkyrc | dzen2 -x '320' -ta 'r'" ++ myDzenStyle
-myDzenStyle  = " -h '20' -fg '#93a1a1' -bg '#000000' -fn 'Droid Sans Mono:size=9'"
+myDzenConky  = "conky -c ~/.conkyrc | dzen2 -x '320' -w '0' -ta 'r'" ++ myDzenStyle
+myDzenStyle  = " -h '20' -fg '#93a1a1' -bg '#000000' -fn 'Terminus:size=9'"
 
 myDzenPP  = dzenPP
     { ppCurrent = dzenColor "#268BD2" "" . wrap " " " "
