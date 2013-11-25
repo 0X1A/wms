@@ -5,7 +5,7 @@ out_to_x no
 update_interval 1
 
 TEXT
-^ca(1,/home/username/.xmonad/sc /home/username/.xmonad/scripts/dzen_network.sh) ^fg(\#FFFFFF)${execi 2 /home/username/.xmonad/scripts/bar_wifi.sh} ${wireless_essid wlp8s0} ^ca() \
+^ca(1,/home/username/.xmonad/sc /home/username/.xmonad/scripts/dzen_network.sh) ^fg(\#FFFFFF)${execi 2 /home/username/.xmonad/scripts/bar_wifi.sh} ${wireless_essid wlan0} ^ca() \
 ^ca(1,/home/username/.xmonad/sc /home/username/.xmonad/scripts/dzen_hardware.sh) ^fg(\#FFFFFF)${execi 2 /home/username/.xmonad/scripts/bar_ram.sh} ^ca() \
 ^ca(1,/home/username/.xmonad/sc /home/username/.xmonad/scripts/dzen_log.sh) ^fg(\#FFFFFF)^i(/home/username/.xmonad/dzen2/info_03.xbm)^ca() \
 ^fg(\#FFFFFF)${time %H:%M}^fg()

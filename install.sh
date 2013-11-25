@@ -3,6 +3,8 @@
 DIR=$(dirname $0)
 XMDIR=$HOME/.xmonad
 
+mkdir $XMDIR
+
 if [ -f $XMDIR/xmonad.hs ]
 then
     echo "Copy xmonad.hs and backup current xmonad.hs? [y/n]"
@@ -14,6 +16,8 @@ then
         cp -v $DIR/xmonad.hs $XMDIR
         xmonad --recompile
     fi
+else
+    cp $DIR/xmonad.hs $XMDIR/
 fi
 
 cp $DIR/.conkyrc ~/
@@ -25,6 +29,7 @@ SetNetwork() {
     echo "Please enter your network device name:"
     read NET
     sed -i -e "s/wlan0/$NET/g" $XMDIR/scripts/*.sh
+    sed -i -e "s/wlan0/$NET/g" $HOME/.conkyrc
 }
 
 SetNetwork
