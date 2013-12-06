@@ -10,7 +10,7 @@ val=()
 for i in {0..100..10}; do
 	if [ $vol -gt $i ]
 	then
-		val+=("^bg($white0)^ca(1,amixer set Master $i)      ^ca()")	
+		val+=("^bg($white0)^ca(1,amixer set Master $i)      ^ca()")
 	else
 		val+=("^bg($background)^ca(1,amixer set Master $i)      ^ca()")
 	fi

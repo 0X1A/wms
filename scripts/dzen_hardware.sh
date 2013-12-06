@@ -17,7 +17,7 @@ uptime="^fg($white0)^i(/home/username/.xmonad/dzen2/net_up_01.xbm)^fg() Uptime ^
 
 hddtitle=$(df -h | head -1)
 hddtotal=$(df -h --total | tail -1)
-#toptitle=$(top -bn1 | grep PID | cut -b1-5,42-) 
+#toptitle=$(top -bn1 | grep PID | cut -b1-5,42-)
 #top=$(top -bn1 | tail -n+8 | sort -k9nr -k10nr | cut -b1-5,42- | grep -v "chromium" | head -n8)
 
 cpu_bar_total=`/home/username/.xmonad/scripts/bar_cpu.sh 0`
