@@ -1,0 +1,4 @@
+#!/bin/bash
+
+FONT_FAMILY='Droid Sans Mono'
+FONT_SIZE=10

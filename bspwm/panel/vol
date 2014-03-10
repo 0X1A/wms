@@ -1,0 +1,69 @@
+#!/bin/bash
+
+source config
+source panel_colors
+
+IF="Master"
+SECS="1"
+
+FONT="fixed"
+BG=$COLOR_BACKGROUND
+FG=$COLOR_FOREGROUND
+XPOS=$(($(sres -W) / 2 - 90))
+YPOS=$(($(sres -H) / 2))
+WIDTH="205"
+HEIGHT="30"
+
+PIPE="/tmp/dvolpipe"
+
+err() {
+  echo "$1"
+  exit 1
+}
+
+usage() {
+  echo "usage: dvol [option] [argument]"
+  echo
+  echo "Options:"
+  echo "     -i, --increase - increase volume by \`argument'"
+  echo "     -d, --decrease - decrease volume by \`argument'"
+  echo "     -t, --toggle   - toggle mute on and off"
+  echo "     -h, --help     - display this"
+  exit
+}
+
+case "$1" in
+  '-i'|'--increase')
+    [ -z "$2" ] && err "No argument specified for increase."
+    AMIXARG="${2}%+"
+    ;;
+  '-d'|'--decrease')
+    [ -z "$2" ] && err "No argument specified for decrease."
+    AMIXARG="${2}%-"
+    ;;
+  '-t'|'--toggle')
+    AMIXARG="toggle"
+    ;;
+  ''|'-h'|'--help')
+    usage
+    ;;
+  *)
+    err "Unrecognized option \`$1', see dvol --help"
+    ;;
+esac
+
+AMIXOUT="$(amixer set "$IF" "$AMIXARG" | tail -n 1)"
+MUTE="$(cut -d '[' -f 4 <<<"$AMIXOUT")"
+if [ "$MUTE" = "off]" ]; then
+  VOL="0"
+else
+  VOL="$(cut -d '[' -f 2 <<<"$AMIXOUT" | sed 's/%.*//g')"
+fi
+
+if [ ! -e "$PIPE" ]; then
+  mkfifo "$PIPE"
+  (dzen2 -l 1 -x "$XPOS" -y "$YPOS" -w "$WIDTH" -h "$HEIGHT" -bg "$BG" -fg "$FG" -e 'onstart=uncollapse' -fn "${FONT_FAMILY}:pixelsize=${FONT_SIZE}" < "$PIPE"
+   rm -f "$PIPE") &
+fi
+
+(echo "Volume" ; echo "$VOL" | dbar -s "|" ; sleep "$SECS") > "$PIPE"
