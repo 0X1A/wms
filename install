@@ -1,0 +1,26 @@
+#!/bin/bash
+BSPWM=$HOME/.config/bspwm/
+SXHKD=$HOME/.config/sxhkd/
+
+inst_bspwm() {
+	mkdir -p ~/.config/{bspwm,sxhkd}
+	if [ ! -f $BSPWM/bspwmrc ] ; then
+		cp bspwm/bspwmrc $BSPWM
+	fi
+	if [ ! -d $BSPWM/panel ] ; then
+		cp -R bspwm/panel $BSPWM
+	fi
+	if [ ! -f $SXHKD/sxhkdrc ] ; then
+		cp bspwm/sxhkdrc $SXHKD
+	fi
+}
+
+case $1 in
+	bspwm)
+		inst_bspwm
+		;;
+	xmonad)
+		;;
+	*)
+		;;
+esac
