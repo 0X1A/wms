@@ -1,0 +1,21 @@
+#!/bin/bash
+
+while [ 1 -gt 0 ]
+do
+	if [ -e $NOTIFY_PIPE ] ; then
+		rm $NOTIFY_PIPE
+	fi
+
+	BAT_LEVEL=$(acpi -b | awk '{gsub(/%,/,""); print $4}' | sed 's/%//g')
+	if [[ $BAT_LEVEL -lt 10 ]] ; then
+		echo "Battery at $BAT_LEVEL%" > "$NOTIFY_PIPE"
+	fi
+	if [[ $BAT_LEVEL -lt 20 ]] ; then
+		echo "Battery at $BAT_LEVEL%" > "$NOTIFY_PIPE"
+	fi
+	if [[ $BAT_LEVEL -lt 30 ]] ; then
+		echo "Battery at $BAT_LEVEL%" > "$NOTIFY_PIPE"
+	fi
+	sleep 10m
+	./notify
+done
