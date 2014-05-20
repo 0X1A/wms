@@ -9,12 +9,12 @@ SECS="1"
 FONT="fixed"
 BG=$COLOR_BACKGROUND
 FG=$COLOR_FOREGROUND
-XPOS=$(($(sres -W) / 2 - 90))
-YPOS=$(($(sres -H) / 2))
-WIDTH="205"
-HEIGHT="30"
+WIDTH=205
+HEIGHT=30
+XPOS=$(($(sres -W) - ($WIDTH + 5)))
+YPOS=25
 
-PIPE="/tmp/dvolpipe"
+PIPE="/tmp/volpipe"
 
 err() {
   echo "$1"
@@ -22,7 +22,7 @@ err() {
 }
 
 usage() {
-  echo "usage: dvol [option] [argument]"
+  echo "usage: vol [option] [argument]"
   echo
   echo "Options:"
   echo "     -i, --increase - increase volume by \`argument'"
@@ -48,7 +48,7 @@ case "$1" in
     usage
     ;;
   *)
-    err "Unrecognized option \`$1', see dvol --help"
+    err "Unrecognized option \`$1', see vol --help"
     ;;
 esac
 
@@ -66,4 +66,4 @@ if [ ! -e "$PIPE" ]; then
    rm -f "$PIPE") &
 fi
 
-(echo "Volume" ; echo "$VOL" | dbar -s "|" ; sleep "$SECS") > "$PIPE"
+(echo "Volume" ; echo "$VOL" | gdbar -bg $BG -fg $FG -w $WIDTH; sleep "$SECS") > "$PIPE"
