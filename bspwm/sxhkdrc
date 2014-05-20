@@ -8,14 +8,14 @@ super + alt + Escape
 super + w
 	bspc window -c
 
-super + t
+super + space
 	bspc desktop -l next
 
 super + {_shift + }b
 	bspc desktop -B
 
-super + {s,f}
-	bspc window -t {floating,fullscreen}
+super + {s,f,p}
+	bspc window -t {floating,fullscreen,pseudo_tiled}
 
 super + {grave,Tab}
 	bspc {window,desktop} -f last
@@ -101,7 +101,7 @@ super + F5
 super + Return
 	urxvt
 
-super + p
+alt + F2
 	dmenu_run -fn 'Droid Sans Mono-9' -h 20 -nf '#FFFFFF' -nb '#303030' -sb '#90C63D' -sf '#303030'
 
 super + b
