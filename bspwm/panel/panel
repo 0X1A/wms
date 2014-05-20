@@ -13,18 +13,31 @@ flavor=${1:-bar}
 mkfifo "$PANEL_FIFO"
 
 bspc config top_padding $PANEL_HEIGHT
-dodate () {
+_date () {
 	CURTIME=$(date '+%S' && sleep 1)
 	if [ $CURTIME -lt $(date '+%S') ] ; then
 		date '+S%a, %b %d %Y %H:%M:%S' > "$PANEL_FIFO"
 	fi
+}
+_battery() {
+	BAT_LEVEL=$(acpi -b | awk '{gsub(/%,/,""); print $4}' | sed 's/%//g')
+	STATUS=$(acpi -b | awk '{gsub(/,/,""); print $3}' | sed 's/%//g')
+	if [[ $STATUS == 'Discharging' ]] ; then
+		STATUS='-'
+	elif [[ $STATUS != 'Discharging' ]] ; then
+		STATUS='+'
+	fi
+
+	echo "B$BAT_LEVEL $STATUS" > "$PANEL_FIFO"
+	sleep 30s
 }
 
 bspc control --subscribe > "$PANEL_FIFO" &
 xtitle -sf 'T%s' > "$PANEL_FIFO" &
 while [ 1 -gt 0 ]
 do
-	dodate
+	_date
+	_battery
 done &
 
 case "$flavor" in
