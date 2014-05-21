@@ -1,5 +1,7 @@
 #! /bin/sh
 
+. panel_config
+
 if [ $(pgrep -cx panel) -gt 1 ] ; then
 	printf "%s\n" "The panel is already running." >&2
 	exit 1
@@ -7,7 +9,6 @@ fi
 
 trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
 
-flavor=${1:-bar}
 
 [ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
 mkfifo "$PANEL_FIFO"
@@ -29,7 +30,7 @@ _battery() {
 	fi
 
 	echo "B$BAT_LEVEL $STATUS" > "$PANEL_FIFO"
-	sleep 30s
+	sleep 30s &
 }
 
 bspc control --subscribe > "$PANEL_FIFO" &
@@ -40,16 +41,6 @@ do
 	_battery
 done &
 
-case "$flavor" in
-	bar)
-		cat "$PANEL_FIFO" | panel_bar | bar &
-		;;
-	dzen2)
-		. panel_colors
-		FONT_FAMILY='Droid Sans Mono for Powerline'
-		FONT_SIZE=10
-		cat "$PANEL_FIFO" | panel_dzen2 -f "$FONT_FAMILY" -s "$FONT_SIZE" | dzen2 -h $PANEL_HEIGHT -dock -ta l -title-name panel -fn "${FONT_FAMILY}:pixelsize=${FONT_SIZE}" -fg "$COLOR_FOREGROUND" -bg "$COLOR_BACKGROUND" &
-		;;
-esac
+cat "$PANEL_FIFO" | panel_dzen2 -f "$FONT_FAMILY" -s "$FONT_SIZE" | dzen2 -h $PANEL_HEIGHT -dock -ta l -title-name panel -fn "${FONT_FAMILY}:pixelsize=${FONT_SIZE}" -fg "$COLOR_FOREGROUND" -bg "$COLOR_BACKGROUND" &
 
 wait
