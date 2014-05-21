@@ -1,9 +1,9 @@
-FONT='Droid Sans'
+FONT='Roboto'
 FONT_SIZE=12
 WIDTH=300
 HEIGHT=50
 
 FG="#FFFFFF"
 BG="#ED492F"
-X_POS=5
+X_POS=$(($(sres -W) - ($WIDTH + 5)))
 Y_POS=25
