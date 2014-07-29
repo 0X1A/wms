@@ -1,0 +1,26 @@
+#!/bin/bash
+
+INTERV=$1
+
+usage() {
+	echo -e "usage: dmenu-cache [TIME INTERVAL]\n"
+	echo -e "time interval:"
+	echo -e "\tSee \`sleep --help\` for available interval options"
+}
+
+set_cache() {
+	while [ true ]
+	do
+		find ~/ | sed 's/ /\\ /g' | sort -f > ~/.dmenu-cache
+		sleep $INTERV
+	done
+}
+
+case $1 in
+	'--help'|'-h')
+		usage
+		;;
+	*)
+		set_cache &
+		;;
+esac

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+FONT='Roboto'
+FONT_SIZE=12
+WIDTH=300
+HEIGHT=50
+
+FG="#FFFFFF"
+BG="#303030"
+X_POS=$(($(sres -W) - ($WIDTH + 5)))
+Y_POS=25

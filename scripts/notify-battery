@@ -1,0 +1,50 @@
+#!/bin/bash
+
+INTERVAL=$1
+
+usage() {
+	echo -e "usage: notify-bettery [TIME INTERVAL]\n"
+	echo -e "time interval:"
+	echo -e "\tSee \`sleep --help\` for available interval options"
+}
+
+clean_pipe() {
+	if [ -e $NOTIFY_PIPE ] ; then
+		rm $NOTIFY_PIPE
+	fi
+}
+
+set_battery_check() {
+	while [ true ]
+	do
+		BAT_LEVEL=$(acpi -b | awk '{gsub(/%,/,""); print $4}' | sed 's/%//g')
+		if [[ $BAT_LEVEL -lt 10 ]] ; then
+			clean_pipe
+			echo "Battery at $BAT_LEVEL%" > "$NOTIFY_PIPE"
+		fi
+		if [[ $BAT_LEVEL -lt 15 ]] ; then
+			clean_pipe
+			echo "Battery at $BAT_LEVEL%" > "$NOTIFY_PIPE"
+		fi
+		if [[ $BAT_LEVEL -lt 20 ]] ; then
+			clean_pipe
+			echo "Battery at $BAT_LEVEL%" > "$NOTIFY_PIPE"
+		fi
+		if [[ $BAT_LEVEL -lt 25 ]] ; then
+			clean_pipe
+			echo "Battery at $BAT_LEVEL%" > "$NOTIFY_PIPE"
+		fi
+		sleep $INTERVAL
+		notify
+	done
+}
+
+case $1 in
+	'--help'|'-h')
+		usage
+		;;
+	*)
+		set_battery_check &
+		;;
+esac
+

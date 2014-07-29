@@ -1,0 +1,42 @@
+#!/bin/bash
+
+BG=$HOME/.background
+FILE=$1
+
+link() {
+	if [ -f $BG ] ; then
+		rm $BG
+	fi
+	cp $FILE $BG
+}
+
+usage() {
+	echo -e "usage: set-background [FILE] [OPTION]\n"
+	echo -e "options:"
+	echo -e "\tscale\tSet background to scale"
+	echo -e "\tcenter\tSet background to center"
+	echo -e "\ttile\tSet background to tile"
+	echo -e "\tmax\tSet background to max"
+}
+
+case $2 in
+	scale)
+		link
+		feh --bg-scale $BG
+		;;
+	center)
+		link
+		feh --bg-center $BG
+		;;
+	tile)
+		link
+		feh --bg-tile $BG
+		;;
+	max)
+		link
+		feh --bg-max $BG
+		;;
+	*)
+		usage
+		;;
+esac

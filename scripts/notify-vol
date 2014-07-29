@@ -1,0 +1,59 @@
+#!/bin/bash
+
+source notify-config
+
+CHAN="Master"
+SECS="1"
+
+VOL_PIPE="/tmp/vol-pipe"
+
+err() {
+	echo "$1"
+	exit 1
+}
+
+usage() {
+	echo "usage: notify-vol [OPTION] [ARGUMENT]"
+	echo
+	echo "options:"
+	echo -e "\t-i, --increase\tincrease volume by \`argument'"
+	echo -e "\t-d, --decrease\tdecrease volume by \`argument'"
+	echo -e "\t-t, --toggle\ttoggle mute on and off"
+	echo -e "\t-h, --help\tdisplay this"
+}
+
+case "$1" in
+	'-i'|'--increase')
+		[ -z "$2" ] && err "No argument specified for increase."
+		AMIXARG="${2}%+"
+		;;
+	'-d'|'--decrease')
+		[ -z "$2" ] && err "No argument specified for decrease."
+		AMIXARG="${2}%-"
+		;;
+	'-t'|'--toggle')
+		AMIXARG="toggle"
+		;;
+	''|'-h'|'--help')
+		usage
+		;;
+	*)
+		err "Unrecognized option \`$1', see vol --help"
+		;;
+esac
+
+AMIXOUT="$(amixer set "$CHAN" "$AMIXARG" | tail -n 1)"
+MUTE="$(cut -d '[' -f 4 <<<"$AMIXOUT")"
+if [ "$MUTE" = "off]" ]; then
+	VOL="0"
+else
+	VOL="$(cut -d '[' -f 2 <<<"$AMIXOUT" | sed 's/%.*//g')"
+fi
+
+if [ ! -e "$VOL_PIPE" ]; then
+	mkfifo "$VOL_PIPE"
+	(dzen2 -fn "$FONT:pixelsize=$FONT_SIZE" -l 1 -x $X_POS -y $Y_POS -w $WIDTH -h $HEIGHT -bg $BG -fg $FG -e onstart=uncollapse < "$VOL_PIPE"
+	rm -f "$VOL_PIPE") &
+fi
+
+(echo "Volume" ; echo "$VOL" | gdbar -bg $BG -fg $FG -w $WIDTH; sleep "$SECS") > "$VOL_PIPE"

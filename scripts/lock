@@ -1,0 +1,33 @@
+#!/bin/bash
+
+IMG=/tmp/lock.png
+SCRN="scrot $IMG"
+
+BLR="$1"
+
+usage() {
+	echo -e "usage: lock [BLUR]\n"
+	echo -e "blur:"
+	echo -e "\t1-8\tSet blur sigma"
+}
+
+check_blur() {
+	if [[ $BLR -eq "0" ]] ; then
+		echo "Please enter a blur sigma between 1-8"
+	fi
+	if [[ $BLR -gt "0" ]] ; then
+		$SCRN
+		convert $IMG -blur 0x$BLR $IMG
+		i3lock -i $IMG
+		rm $IMG
+	fi
+}
+
+case $1 in
+	'--help'|'-h')
+		usage
+		;;
+	*)
+		check_blur
+		;;
+esac
