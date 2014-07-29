@@ -1,1 +1,1 @@
-Window manager configurations
+# Window Manager Settings
