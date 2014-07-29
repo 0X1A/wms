@@ -1,26 +1,39 @@
 #!/bin/bash
-BSPWM=$HOME/.config/bspwm/
+DNAME=`dirname $0`
+BSPWMD=$HOME/.config/bspwm/
 SXHKD=$HOME/.config/sxhkd/
+SCRIPTD=$HOME/.config/scripts/
+
+mkdirs() {
+	mkdir -p $BSPWMD
+	mkdir -p $SXHKD
+	mkdir -p $SCRIPTD
+}
+
+inst_scripts() {
+	cp $DNAME/scripts/* $SCRIPTD
+	echo "PATH=$PATH:$HOME/.config/scripts/" >> $HOME/.zshrc
+	echo "export NOTIFY_PIPE=/tmp/notify-pipe" >> $HOME/.zshrc
+	source ~/.zshrc
+}
 
 inst_bspwm() {
-	mkdir -p ~/.config/{bspwm,sxhkd}
-	if [ ! -f $BSPWM/bspwmrc ] ; then
-		cp bspwm/bspwmrc $BSPWM
+	if [ ! -f $BSPWMD/bspwmrc ] ; then
+		cp $DNAME/bspwm/bspwmrc-single $BSPWMD/bspwmrc
 	fi
-	if [ ! -d $BSPWM/panel ] ; then
-		cp -R bspwm/panel $BSPWM
+	if [ ! -d $BSPWMD/panel ] ; then
+		cp -R $DNAME/bspwm/panel $BSPWMD
 	fi
 	if [ ! -f $SXHKD/sxhkdrc ] ; then
-		cp bspwm/sxhkdrc $SXHKD
+		cp $DNAME/bspwm/sxhkdrc $SXHKD
 	fi
+	cp -r $DNAME/scripts $SXHKD
 }
 
 case $1 in
-	bspwm)
-		inst_bspwm
-		;;
-	xmonad)
-		;;
 	*)
+		mkdirs
+		inst_scripts
+		inst_bspwm
 		;;
 esac
