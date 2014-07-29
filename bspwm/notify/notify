@@ -1,5 +1,0 @@
-#!/bin/bash
-
-. notify_config
-
-(cat "$NOTIFY_PIPE"; sleep 2s) | dzen2 -fn "$FONT:pixelsize=$FONT_SIZE" -fg $FG -bg $BG -x $X_POS -y $Y_POS -h $HEIGHT -w $WIDTH
