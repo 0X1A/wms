@@ -12,7 +12,7 @@ mkdirs() {
 
 inst_scripts() {
 	cp $DNAME/scripts/* $SCRIPTD
-	echo "PATH=$PATH:$HOME/.config/scripts/" >> $HOME/.zshrc
+	echo "export PATH=$PATH:$HOME/.config/scripts/" >> $HOME/.zshrc
 	echo "export NOTIFY_PIPE=/tmp/notify-pipe" >> $HOME/.zshrc
 	source ~/.zshrc
 }
