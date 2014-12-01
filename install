@@ -16,6 +16,11 @@ inst_scripts() {
 		echo "Backing up your xinitrc to $HOME/.xinitrc.back"
 		cp $HOME/.xinitrc $HOME/.xinitrc.back
 	fi
+	if [ -f $HOME/.Xresources ] ; then
+		echo "Backing up your Xresources to $HOME/.Xresources.back"
+		cp $HOME/.Xresources $HOME/.Xresources.back
+	fi
+	cp $DNAME/Xresources $HOME/.Xresources
 	cp $DNAME/xinitrc $HOME/.xinitrc
 	echo "export PATH=\$PATH:\$HOME/.config/scripts/" >> $HOME/.bashrc
 	echo "export NOTIFY_PIPE=/tmp/notify-pipe" >> $HOME/.bashrc
