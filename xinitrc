@@ -9,6 +9,8 @@ fi
 
 sxhkd &
 dmenu-cache 10m &
-feh ~/.fehbg &
+sh feh ~/.fehbg &
 xrdb -merge ~/.Xresources &
+xset -dpms &
+xset s off &
 exec bspwm

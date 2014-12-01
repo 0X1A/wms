@@ -12,9 +12,14 @@ mkdirs() {
 
 inst_scripts() {
 	cp $DNAME/scripts/* $SCRIPTD
-	echo "export PATH=$PATH:$HOME/.config/scripts/" >> $HOME/.zshrc
-	echo "export NOTIFY_PIPE=/tmp/notify-pipe" >> $HOME/.zshrc
-	source ~/.zshrc
+	if [ -f $HOME/.xinitrc ] ; then
+		echo "Backing up your xinitrc to $HOME/.xinitrc.back"
+		cp $HOME/.xinitrc $HOME/.xinitrc.back
+	fi
+	cp $DNAME/xinitrc $HOME/.xinitrc
+	echo "export PATH=\$PATH:\$HOME/.config/scripts/" >> $HOME/.bashrc
+	echo "export NOTIFY_PIPE=/tmp/notify-pipe" >> $HOME/.bashrc
+	source ~/.bashrc
 }
 
 inst_bspwm() {
