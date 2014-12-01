@@ -1,7 +1,3 @@
-#
-# bspwm hotkeys
-#
-
 super + alt + Escape
 	bspc quit
 
@@ -17,7 +13,7 @@ super + {_shift + }b
 super + {s,f,p}
 	bspc window -t {floating,fullscreen,pseudo_tiled}
 
-super + {grave,Tab}
+super + {Tab,grave}
 	bspc {window,desktop} -f last
 
 super + apostrophe
@@ -102,7 +98,7 @@ super + Return
 	urxvt
 
 alt + F2
-	dmenu_run -fn 'Droid Sans Mono-9' -h 20 -nf '#FFFFFF' -nb '#303030' -sb '#90C63D' -sf '#303030'
+	dmenu-run
 
 alt + f
 	dmenu-fm

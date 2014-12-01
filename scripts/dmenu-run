@@ -1,0 +1,5 @@
+#!/bin/bash
+
+DIR=`dirname $0`
+source $DIR/dmenu-config
+dmenu_run -fn "$FONT:pixelsize=$FONT_SIZE" -i -l $DMENUL -w $DMENUW -h $DMENUH -x $DMENUXPOS -y $DMENUYPOS -nb $BG_COLOR -nf $FG_COLOR -sb $SBG_COLOR -sf $SFG_COLOR
