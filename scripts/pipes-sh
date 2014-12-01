@@ -1,0 +1,5 @@
+#!/bin/sh
+
+export PANEL_FIFO=/tmp/panel-fifo
+export PANEL_HEIGHT=20
+export NOTIFY_PIPE=/tmp/notify-pipe

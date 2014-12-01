@@ -1,0 +1,12 @@
+#!/bin/sh
+
+DIR=`dirname $0`
+
+case $SHELL in
+	"/bin/bash" | "/bin/sh" | "/bin/zsh")
+		./$DIR/pipes-sh
+		;;
+	"/usr/bin/fish")
+		./$DIR/pipes-fish
+		;;
+esac
