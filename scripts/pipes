@@ -4,9 +4,9 @@ DIR=`dirname $0`
 
 case $SHELL in
 	"/bin/bash" | "/bin/sh" | "/bin/zsh")
-		./$DIR/pipes-sh
+		`$SHELL pipes-sh`
 		;;
 	"/usr/bin/fish")
-		./$DIR/pipes-fish
+		`$SHELL pipes-fish`
 		;;
 esac
