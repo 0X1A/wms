@@ -10,6 +10,63 @@ mkdirs() {
 	mkdir -p $SCRIPTD
 }
 
+clean() {
+	cd $DNAME
+	rm -rf package-query yaourt bspwm-git sxhkd-git sres-git dmenu2-hg
+	rm *.tar.gz
+}
+
+inst_needed() {
+	wget https://aur.archlinux.org/packages/pa/package-query/package-query.tar.gz
+	wget https://aur.archlinux.org/packages/bs/bspwm-git/bspwm-git.tar.gz
+	wget https://aur.archlinux.org/packages/sx/sxhkd-git/sxhkd-git.tar.gz
+	wget https://aur.archlinux.org/packages/sr/sres-git/sres-git.tar.gz
+	wget https://aur.archlinux.org/packages/dm/dmenu2-hg/dmenu2-hg.tar.gz
+	wget https://aur.archlinux.org/packages/ya/yaourt/yaourt.tar.gz
+	wget https://aur.archlinux.org/packages/po/powerline-fonts-git/powerline-fonts-git.tar.gz
+	tar xf package-query.tar.gz
+	tar xf yaourt.tar.gz
+	tar xf bspwm-git.tar.gz
+	tar xf sxhkd-git.tar.gz
+	tar xf sres-git.tar.gz
+	tar xf dmenu2-hg.tar.gz
+	tar xf powerline-fonts-git.tar.gz
+
+	cd package-query
+	makepkg -s
+	sudo pacman -U *.pkg.tar.xz --noconfirm
+
+	cd ../yaourt
+	makepkg -s
+	sudo pacman -U *.pkg.tar.xz --noconfirm
+
+	cd ../bspwm-git
+	makepkg -s
+	sudo pacman -U *.pkg.tar.xz --noconfirm
+
+	cd ../sxhkd-git
+	makepkg -s
+	sudo pacman -U *.pkg.tar.xz --noconfirm
+
+	cd ../sres-git
+	makepkg -s
+	sudo pacman -U *.pkg.tar.xz --noconfirm
+
+	cd ../dmenu2-hg
+	makepkg -s
+	sudo pacman -U *.pkg.tar.xz --noconfirm
+
+	cd ../powerline-fonts-git
+	makepkg -s
+	sudo pacman -U *.pkg.tar.xz --noconfirm
+
+	sudo pacman -S tlp iw ethtool acpi feh i3lock imagemagick dzen2 --noconfirm
+	sudo systemctl enable tlp tlp-sleep
+	sudo systemctl start tlp tlp-sleep
+
+	clean
+}
+
 inst_scripts() {
 	cp $DNAME/scripts/* $SCRIPTD
 	if [ -f $HOME/.xinitrc ] ; then
@@ -41,9 +98,16 @@ inst_bspwm() {
 }
 
 case $1 in
-	*)
+	'--all')
 		mkdirs
 		inst_scripts
 		inst_bspwm
+		inst_needed
+		;;
+	'--deps')
+		inst_needed
+		;;
+	'--clean')
+		clean
 		;;
 esac

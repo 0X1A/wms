@@ -2,8 +2,8 @@ Xcursor.theme:      Vanilla-DMZ-AA
 Xcursor.size:       22
 
 URxvt.imLocale:     en_US.UTF-8
-URxvt.font:         xft:Droid\ Sans\ Mono\ for\ Powerline:pixelsize=11:antialias=true:hinting=true:hintstyle=hintslight:rgba=rgb
-URxvt.boldFont:     xft:Droid\ Sans\ Mono\ for\ Powerline:pixelsize=11:antialias=true:hinting=true:hintstyle=hintslight:rgba=rgb
+URxvt.font:         xft:Liberation\ Mono\ for\ Powerline:pixelsize=11:antialias=true:hinting=true:hintstyle=hintslight:rgba=rgb
+URxvt.boldFont:     xft:Liberation\ Mono\ for\ Powerline:pixelsize=11:antialias=true:hinting=true:hintstyle=hintslight:rgba=rgb
 URxvt.scrollBar:    0
 URxvt.saveLines:    12000
 URxvt.perl-lib:     /usr/lib/urxvt/perl/
