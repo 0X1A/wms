@@ -24,6 +24,7 @@ inst_needed() {
 	wget https://aur.archlinux.org/packages/dm/dmenu2-hg/dmenu2-hg.tar.gz
 	wget https://aur.archlinux.org/packages/ya/yaourt/yaourt.tar.gz
 	wget https://aur.archlinux.org/packages/po/powerline-fonts-git/powerline-fonts-git.tar.gz
+	wget https://aur.archlinux.org/packages/rx/rxvt-unicode-patched/rxvt-unicode-patched.tar.gz
 	tar xf package-query.tar.gz
 	tar xf yaourt.tar.gz
 	tar xf bspwm-git.tar.gz
@@ -31,6 +32,7 @@ inst_needed() {
 	tar xf sres-git.tar.gz
 	tar xf dmenu2-hg.tar.gz
 	tar xf powerline-fonts-git.tar.gz
+	tar xf rxvt-unicode-patched.tar.gz
 
 	cd package-query
 	makepkg -s
@@ -57,6 +59,10 @@ inst_needed() {
 	sudo pacman -U *.pkg.tar.xz --noconfirm
 
 	cd ../powerline-fonts-git
+	makepkg -s
+	sudo pacman -U *.pkg.tar.xz --noconfirm
+
+	cd ../rxvt-unicode-patched
 	makepkg -s
 	sudo pacman -U *.pkg.tar.xz --noconfirm
 
