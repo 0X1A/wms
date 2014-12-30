@@ -1,16 +1,19 @@
 #!/bin/bash
 
+DIR=`dirname $0`
+. $DIR/notify-config
+
 DATE=$(date '+%F-%H:%M:%S')
 IMG=$DATE.png
 
-DIR=$HOME/Pictures
+PDIR=$HOME/Pictures
 
-scrot $DIR/$IMG
+scrot $PDIR/$IMG
 
 if [ -e $NOTIFY_PIPE ] ; then
 	rm $NOTIFY_PIPE
 fi
 
-echo "^ca(1, feh $DIR/$IMG)Screenshot taken $DIR/$IMG^ca()" > "$NOTIFY_PIPE"
+echo "^ca(1, feh $PDIR/$IMG)Screenshot taken $PDIR/$IMG^ca()" > "$NOTIFY_PIPE"
 
 notify

@@ -85,9 +85,6 @@ inst_scripts() {
 	fi
 	cp $DNAME/Xresources $HOME/.Xresources
 	cp $DNAME/xinitrc $HOME/.xinitrc
-	echo "export PATH=\$PATH:\$HOME/.config/scripts/" >> $HOME/.bashrc
-	echo "export NOTIFY_PIPE=/tmp/notify-pipe" >> $HOME/.bashrc
-	source ~/.bashrc
 }
 
 inst_bspwm() {

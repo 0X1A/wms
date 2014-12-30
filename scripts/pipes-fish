@@ -1,5 +1,0 @@
-#!/usr/bin/fish
-
-set -Ux PANEL_FIFO /tmp/panel-fifo
-set -Ux PANEL_HEIGHT 20
-set -Ux NOTIFY_PIPE /tmp/notify-pipe

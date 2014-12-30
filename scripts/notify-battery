@@ -1,5 +1,8 @@
 #!/bin/bash
 
+DIR=`dirname $0`
+. $DIR/notify-conf
+
 INTERVAL=$1
 
 usage() {

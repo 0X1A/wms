@@ -1,5 +1,7 @@
 #!/bin/bash
 
+NOTIFY_PIPE=/tmp/notify-pipe
+
 FONT='Roboto'
 FONT_SIZE=12
 WIDTH=300
