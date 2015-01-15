@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 FONT='Roboto'
 FONT_SIZE=12
 BG_COLOR='#303030'
