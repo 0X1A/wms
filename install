@@ -3,11 +3,13 @@ DNAME=`dirname $0`
 BSPWMD=$HOME/.config/bspwm/
 SXHKD=$HOME/.config/sxhkd/
 SCRIPTD=$HOME/.config/scripts/
+WMMD=$HOME/.config/wmm
 
 mkdirs() {
 	mkdir -p $BSPWMD
 	mkdir -p $SXHKD
 	mkdir -p $SCRIPTD
+	mkdir -p $WMMD
 }
 
 clean() {
@@ -82,6 +84,8 @@ inst_needed() {
 	sudo systemctl enable tlp tlp-sleep
 	sudo systemctl start tlp tlp-sleep
 
+	gem install wmm
+
 	clean
 }
 
@@ -110,6 +114,7 @@ inst_bspwm() {
 		cp $DNAME/bspwm/sxhkdrc $SXHKD
 	fi
 	cp -r $DNAME/scripts $SXHKD
+	cp $DNAME/wmm.yml $WMMD
 }
 
 case $1 in
