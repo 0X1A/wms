@@ -29,6 +29,8 @@ inst_needed() {
 	wget https://aur.archlinux.org/packages/ya/yaourt/yaourt.tar.gz
 	wget https://aur.archlinux.org/packages/po/powerline-fonts-git/powerline-fonts-git.tar.gz
 	wget https://aur.archlinux.org/packages/rx/rxvt-unicode-patched/rxvt-unicode-patched.tar.gz
+	wget https://aur.archlinux.org/packages/ur/urxvt-clipboard/urxvt-clipboard.tar.gz
+	wget https://aur.archlinux.org/packages/tt/ttf-google-fonts-git/ttf-google-fonts-git.tar.gz
 	tar xf package-query.tar.gz
 	tar xf yaourt.tar.gz
 	tar xf bspwm-git.tar.gz
@@ -39,6 +41,8 @@ inst_needed() {
 	tar xf dmenu2.tar.gz
 	tar xf powerline-fonts-git.tar.gz
 	tar xf rxvt-unicode-patched.tar.gz
+	tar xf urxvt-clipboard.tar.gz
+	tar xf ttf-google-fonts-git.tar.gz
 
 	cd package-query
 	makepkg -s --noconfirm
@@ -80,7 +84,16 @@ inst_needed() {
 	makepkg -s --noconfirm
 	sudo pacman -U *.pkg.tar.xz --noconfirm
 
-	sudo pacman -S tlp scrot iw ethtool acpi feh i3lock imagemagick dzen2 --noconfirm
+	cd ../urxvt-clipboard
+	makepkg -s --noconfirm
+	sudo pacman -U *.pkg.tar.xz --noconfirm
+
+	cd ../ttf-google-fonts-git
+	makepkg -s --noconfirm
+	sudo pacman -U *.pkg.tar.xz --noconfirm
+
+	sudo pacman -S tlp scrot iw ethtool acpi feh i3lock imagemagick dzen2 \
+		firefox firefox-i18n-en-us gnome-themes-standard adwaita-icon-them --noconfirm
 	sudo systemctl enable tlp tlp-sleep
 	sudo systemctl start tlp tlp-sleep
 
@@ -105,7 +118,7 @@ inst_scripts() {
 
 inst_bspwm() {
 	if [ ! -f $BSPWMD/bspwmrc ] ; then
-		cp $DNAME/bspwm/bspwmrc-single $BSPWMD/bspwmrc
+		cp $DNAME/bspwm/bspwmrc $BSPWMD/bspwmrc
 	fi
 	if [ ! -d $BSPWMD/panel ] ; then
 		cp -R $DNAME/bspwm/panel $BSPWMD

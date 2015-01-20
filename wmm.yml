@@ -16,4 +16,5 @@ exec:
         - exec xrdb -merge ~/.Xresources
         - xset -dpms
         - xset s off
+        - xsetroot -cursor_name left_ptr
 panel: panel
