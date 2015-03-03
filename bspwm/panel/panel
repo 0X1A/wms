@@ -2,7 +2,7 @@
 
 . panel_config
 
-PANEL_HEIGHT=20
+PANEL_HEIGHT=22
 PANEL_FIFO=/tmp/panel-fifo
 
 if [ $(pgrep -cx panel) -gt 1 ] ; then
@@ -17,33 +17,35 @@ trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
 mkfifo "$PANEL_FIFO"
 
 bspc config top_padding $PANEL_HEIGHT
+
 _date () {
-	CURTIME=$(date '+%S' && sleep 1)
-	if [ $CURTIME -lt $(date '+%S') ] ; then
-		date '+S%a, %b %d %Y %H:%M:%S' > "$PANEL_FIFO"
-	fi
+	while [ 1 ] ; do
+			date '+S%a, %b %d %Y %H:%M' > "$PANEL_FIFO"
+			sleep 2s
+	done
 }
 _battery() {
-	BAT_LEVEL=$(acpi -b | awk '{gsub(/%,/,""); print $4}' | sed 's/%//g')
-	STATUS=$(acpi -b | awk '{gsub(/,/,""); print $3}' | sed 's/%//g')
-	if [[ $STATUS == 'Discharging' ]] ; then
-		STATUS='-'
-	elif [[ $STATUS != 'Discharging' ]] ; then
-		STATUS='+'
-	fi
+	while [ 1 ] ; do
+		BAT_LEVEL=$(acpi -b | awk '{gsub(/%,/,""); print $4}' | sed 's/%//g')
+		STATUS=$(acpi -b | awk '{gsub(/,/,""); print $3}' | sed 's/%//g')
+		if [[ $STATUS == 'Discharging' ]] ; then
+			STATUS='-'
+		elif [[ $STATUS != 'Discharging' ]] ; then
+			STATUS='+'
+		fi
 
-	echo "B$BAT_LEVEL $STATUS" > "$PANEL_FIFO"
-	sleep 30s &
+		echo "B$BAT_LEVEL $STATUS" > "$PANEL_FIFO"
+		sleep 30s
+	done
 }
 
 bspc control --subscribe > "$PANEL_FIFO" &
 xtitle -sf 'T%s' > "$PANEL_FIFO" &
-while [ 1 -gt 0 ]
-do
-	_date
-	_battery
-done &
+_date &
+_battery &
 
 cat "$PANEL_FIFO" | panel_dzen2 -f "$FONT_FAMILY" -s "$FONT_SIZE" | dzen2 -h $PANEL_HEIGHT -dock -ta l -title-name panel -fn "${FONT_FAMILY}:pixelsize=${FONT_SIZE}" -fg "$COLOR_FOREGROUND" -bg "$COLOR_BACKGROUND" &
+trayer --edge top --align right --widthtype pixel --width 20 --height 22 --transparent true --alpha 0 --tint 0x303030 &
+nm-applet &
 
 wait

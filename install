@@ -4,12 +4,14 @@ BSPWMD=$HOME/.config/bspwm/
 SXHKD=$HOME/.config/sxhkd/
 SCRIPTD=$HOME/.config/scripts/
 WMMD=$HOME/.config/wmm
+GTK3=$HOME/.config/gtk-3.0
 
 mkdirs() {
 	mkdir -p $BSPWMD
 	mkdir -p $SXHKD
 	mkdir -p $SCRIPTD
 	mkdir -p $WMMD
+	mkdir -p $GTK3
 }
 
 clean() {
@@ -93,7 +95,7 @@ inst_needed() {
 	sudo pacman -U *.pkg.tar.xz --noconfirm
 
 	sudo pacman -S tlp scrot iw ethtool acpi feh i3lock imagemagick dzen2 \
-		firefox firefox-i18n-en-us gnome-themes-standard adwaita-icon-them --noconfirm
+		firefox firefox-i18n-en-us gnome-themes-standard adwaita-icon-theme --noconfirm
 	sudo systemctl enable tlp tlp-sleep
 	sudo systemctl start tlp tlp-sleep
 
@@ -114,6 +116,8 @@ inst_scripts() {
 	fi
 	cp $DNAME/Xresources $HOME/.Xresources
 	cp $DNAME/xinitrc $HOME/.xinitrc
+	cp $DNAME/gtk3-settings $GTK3/settings.ini
+	cp $DNAME/gtkrc-2.0 $HOME/.gtkrc-2.0
 }
 
 inst_bspwm() {
