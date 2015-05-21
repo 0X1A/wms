@@ -2,8 +2,8 @@ Xcursor.theme:      Vanilla-DMZ-AA
 Xcursor.size:       22
 
 URxvt.imLocale:     en_US.UTF-8
-URxvt.font:         xft:Liberation\ Mono\ for\ Powerline:pixelsize=11:antialias=true:hinting=true:hintstyle=hintslight:rgba=rgb
-URxvt.boldFont:     xft:Liberation\ Mono\ for\ Powerline:pixelsize=11:antialias=true:hinting=true:hintstyle=hintslight:rgba=rgb
+URxvt.font:         xft:Liberation\ Mono\ for\ Powerline:pixelsize=12:antialias=true:hinting=true:hintstyle=hintslight:rgba=rgb
+URxvt.boldFont:     xft:Liberation\ Mono\ for\ Powerline:pixelsize=12:antialias=true:hinting=true:hintstyle=hintslight:rgba=rgb
 URxvt.scrollBar:    0
 URxvt.saveLines:    12000
 URxvt.perl-lib:     /usr/lib/urxvt/perl/
@@ -15,6 +15,13 @@ URxvt.tabbed.tabbar-fg: 12
 URxvt.tabbed.tabbar-bg: 8
 URxvt.tabbed.tab-fg:    8
 URxvt.tabbed.tab-bg:    4
+
+Xft.autohint:	0
+Xft.lcdfilter:	lcddefault
+Xft.hintstyle:	hintslight
+Xft.hinting:	1
+Xft.antialias:	1
+Xft.rgba:	rgb
 
 
 ! Solarized color scheme for the X Window System
